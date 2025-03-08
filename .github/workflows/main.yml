@@ -21,3 +21,30 @@ jobs:
       - name: executando comando build
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
+        
+  release:
+    name: Criação de release
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Obyendo código fonte
+        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}       
+      - name: Login to ECR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.ID_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION}}.amazonaws.com
+      - name: Build e Push 
+        uses: docker/build-push-action@v6
+        with:
+          context: ./src
+          file: ./src/Review-Filmes.web/Dockerfile
+          push: true
+          tags: |
+            ${{ vars.ID_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION}}.amazonaws.com/review-filmes:latest
+            ${{ vars.ID_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION}}.amazonaws.com/review-filmes:${{ github.run_number }}
+            
