@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./src
-          file: ./src/Review-Filmes.web/Dockerfile
+          file: ./src/Review-Filmes.Web/Dockerfile
           push: true
           tags: |
             ${{ vars.ID_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION}}.amazonaws.com/review-filmes:latest
