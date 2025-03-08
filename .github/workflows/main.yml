@@ -32,7 +32,7 @@ jobs:
   release:
     name: Criação de release
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [testes]
     steps: 
       - name: Obyendo código fonte
         uses: actions/checkout@v4
