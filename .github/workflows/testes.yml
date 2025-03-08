@@ -15,4 +15,30 @@ jobs:
               dotnet-version: 8.0.300 
           - name: Executando testes unitários
             working-directory: ./src
-            run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
+            run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj 
+
+    integration-testes:
+        name: Testes de integração
+        runs-on: ubuntu-latest
+        services:
+          postgres:
+            image: postgres:latest
+            env:
+              POSTGRES_USER: postgres
+              POSTGRES_PASSWORD: postgres
+              POSTGRES_DB: review-filmes
+            ports:
+              - 5432:5432
+        steps:           
+          - name: Checkout
+            uses: actions/checkout@v4 
+          - name: Setup dotnet
+            uses: actions/setup-dotnet@v4
+            with:
+              dotnet-version: 8.0.300 
+
+          - name: Executando testes integracao
+            working-directory: ./src
+            run: dotnet test ./Review-Filmes.Test.Integration/Review-Filmes.Test.Integration.csproj                
+            env:
+              ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=review-filmes;Username=postgres;Password=postgres"
