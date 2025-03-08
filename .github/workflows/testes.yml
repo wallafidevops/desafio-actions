@@ -24,8 +24,8 @@ jobs:
           postgres:
             image: postgres:latest
             env:
-              POSTGRES_USER: postgres
-              POSTGRES_PASSWORD: postgres
+              POSTGRES_USER: review
+              POSTGRES_PASSWORD: postgrespwd
               POSTGRES_DB: review-filmes
             ports:
               - 5432:5432
@@ -41,4 +41,4 @@ jobs:
             working-directory: ./src
             run: dotnet test ./Review-Filmes.Test.Integration/Review-Filmes.Test.Integration.csproj                
             env:
-              ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=review-filmes;Username=postgres;Password=postgres"
+              ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=review-filmes;Username=review;Password=postgrespwd"
