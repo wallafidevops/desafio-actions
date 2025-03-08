@@ -24,6 +24,10 @@ jobs:
       - name: executando comando build
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
+
+  testes:
+    needs: [build]
+    uses: wallafidevops/desafio-actions/.github/workflows/testes.yml@main
         
   release:
     name: Criação de release
