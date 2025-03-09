@@ -65,14 +65,14 @@ jobs:
       - name: Executar Trivy
         uses: aquasecurity/trivy-action@0.23.0
         with:
-          scan-type: 'image'
+          scan-type: image
           image-ref: ${{ vars.ID_ACCOUNT }}.dkr.ecr.${{ vars.AWS_REGION}}.amazonaws.com/review-filmes:${{ github.run_number }} 
-          format: 'sarif'
-          output: 'trivy-docker-results.sarif'
+          format: sarif
+          output: trivy-docker-result.sarif
           severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
 
       - name: upload do arquivo triy para github 
         uses: github/codeql-action/upload-sarif@v3
         with:
           category: docker-result
-          sarif_file: trivy-docker-results.sarif
+          sarif_file: trivy-docker-result.sarif
