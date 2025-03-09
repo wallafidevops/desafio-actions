@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
         - name: reviewfilmes
-          image: fabricioveronez/rv-teste
+          image: 216989136189.dkr.ecr.us-east-1.amazonaws.com/review-filmes
           env:
           - name: ASPNETCORE_HTTP_PORTS
             value: "8080"

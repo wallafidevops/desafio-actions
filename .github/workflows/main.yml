@@ -77,3 +77,10 @@ jobs:
         with:
           category: docker-result
           sarif_file: trivy-docker-result.sarif
+
+
+  deploy-homolog:
+    needs: [release]
+    uses: wallafidevops/desafio-actions/.github/workflows/deploy.yml@main
+    secrets: inherit
+          ## secret por herança          
