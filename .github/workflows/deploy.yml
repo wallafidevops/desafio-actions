@@ -28,6 +28,12 @@ jobs:
             - name: Update deployment
               run: |
                 sed -i "s/host: homologacao.wsnobrega.life/host: ${{vars.BASE_URL}}/g" k8s/deployment.yaml
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: us-east-1                     
 
             - name: Deploy kubernetes
               uses: Azure/k8s-deploy@v5
