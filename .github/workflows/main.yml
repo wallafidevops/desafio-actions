@@ -106,7 +106,7 @@ jobs:
         run: dotnet test ./Review-Filmes.Test.EndToEnd/Review-Filmes.Test.EndToEnd.csproj
 
   deploy-producao:
-    needs: [release]
+    needs: [teste-2end]
     uses: wallafidevops/desafio-actions/.github/workflows/deploy.yml@main
     secrets: inherit
     with:
