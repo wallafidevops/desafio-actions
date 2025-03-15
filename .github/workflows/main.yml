@@ -112,5 +112,4 @@ jobs:
     with:
       environment-name: producao
       environment-url: http://producao.wsnobrega.life    
-
       ##20 min
