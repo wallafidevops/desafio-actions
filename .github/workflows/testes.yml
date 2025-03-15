@@ -81,5 +81,6 @@ jobs:
           - name: Exibir status quality gate
             if: ${{ always() }}
             run: echo "Quality Gate falhou na etapa ${{ steps.sonarqube-quality-gate-check.outputs.status }}" 
+            
 
 ## https://plataforma.devopspro.com.br/courses/af00ffe1-1d2f-4dce-9a19-780e59273907/2/1/28/conteudos?capitulo=28&conteudo=978  minuto 30
