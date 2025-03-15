@@ -43,42 +43,43 @@ jobs:
             env:
               ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=review-filmes;Username=review;Password=postgrespwd"
 
-    # sonarqube:  
-    #     name: Análise de código
-    #     runs-on: ubuntu-latest
-    #     steps: 
-    #       - name: Checkout
-    #         uses: actions/checkout@v4                      
-    #       - name: Setup JDK
-    #         uses: actions/setup-java@v4
-    #         with:
-    #           java-version: '21'
-    #           distribution: 'adopt'              
+    sonarqube:  
+        name: Análise de código
+        runs-on: ubuntu-latest
+        steps: 
+          - name: Checkout
+            uses: actions/checkout@v4                      
+          - name: Setup JDK
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'adopt'               
+              java-version: '21'
+             
 
-    #       - name: Setup Jdotnet
-    #         uses: actions/setup-dotnet@v4
-    #         with:
-    #           dotnet-version: 8.0.300
+          - name: Setup Jdotnet
+            uses: actions/setup-dotnet@v4
+            with:
+              dotnet-version: 8.0.300
 
-    #       - name: Instalcao sonarqube 
-    #         run: dotnet tool install --global dotnet-sonarscanner
+          - name: Instalcao sonarqube 
+            run: dotnet tool install --global dotnet-sonarscanner
 
-    #       - name: Build e analise
-    #         working-directory: ./src
-    #         run: |
-    #             dotnet sonarscanner begin /k:"Review-Filmes" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-    #             dotnet build Review-Filmes.sln
-    #             dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}" 
-    #       - name: Verificação do quality gate 
-    #         uses: sonarsource/sonarqube-quality-gate-action@master
-    #         id: sonarqube-quality-gate-check
-    #         env:
-    #            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-    #            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    #         with:
-    #            scanMetadataReportFile: ./src/.sonarqube/out/.sonar/report-task.txt
-    #       - name: Exibir status quality gate
-    #         if: ${{ always() }}
-    #         run: echo "Quality Gate falhou na etapa ${{ steps.sonarqube-quality-gate-check.outputs.status }}" 
+          - name: Build e analise
+            working-directory: ./src
+            run: |
+                dotnet sonarscanner begin /k:"Review-Filmes" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+                dotnet build Review-Filmes.sln
+                dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}" 
+          - name: Verificação do quality gate 
+            uses: sonarsource/sonarqube-quality-gate-action@master
+            id: sonarqube-quality-gate-check
+            env:
+               SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            with:
+               scanMetadataReportFile: ./src/.sonarqube/out/.sonar/report-task.txt
+          - name: Exibir status quality gate
+            if: ${{ always() }}
+            run: echo "Quality Gate falhou na etapa ${{ steps.sonarqube-quality-gate-check.outputs.status }}" 
 
-### https://plataforma.devopspro.com.br/courses/af00ffe1-1d2f-4dce-9a19-780e59273907/2/1/28/conteudos?capitulo=28&conteudo=978  minuto 30
+## https://plataforma.devopspro.com.br/courses/af00ffe1-1d2f-4dce-9a19-780e59273907/2/1/28/conteudos?capitulo=28&conteudo=978  minuto 30

@@ -79,8 +79,20 @@ jobs:
           sarif_file: trivy-docker-result.sarif
 
 
-  deploy-homolog:
-    needs: [release]
-    uses: wallafidevops/desafio-actions/.github/workflows/deploy.yml@main
-    secrets: inherit
-          ## secret por herança          
+  # deploy-homolog:
+  #   needs: [release]
+  #   uses: wallafidevops/desafio-actions/.github/workflows/deploy.yml@main
+  #   secrets: inherit
+  #   with:
+  #     environment-name: homologacao
+  #     environment-url: http://homologacao.wsnobrega.life
+
+  # deploy-producao:
+  #   needs: [release]
+  #   uses: wallafidevops/desafio-actions/.github/workflows/deploy.yml@main
+  #   secrets: inherit
+  #   with:
+  #     environment-name: producao
+  #     environment-url: http://producao.wsnobrega.life    
+
+      ##20 min
